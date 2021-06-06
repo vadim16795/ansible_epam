@@ -1,10 +1,10 @@
 # ansible_epam
 <br>
-task1<br>
+<b>task1</b><br>
 usage: ansible-playbook -i inventory task1.yml <br>
 tags: install_httpd, deinstall_httpd, grub <br>
 <br>
-task2<br>
+<b>task2</b><br>
 usage: ansible-playbook -i inventory --vault-password-file=vault_password task2.yml <br>
 tags: add_user <br>
 Alice password: Alice<br>
