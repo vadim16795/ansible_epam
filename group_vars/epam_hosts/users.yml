@@ -5,7 +5,7 @@ users:
     user2: "Bob"
     user3: "Carol"
   email:
-    email1: "alice"
-    email2: "bob"
-    email3: "carol"
+    email1: "alice@example.com"
+    email2: "bob@example.com"
+    email3: "carol@example.com"
 
