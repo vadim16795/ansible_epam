@@ -72,7 +72,7 @@
     lineinfile: path=/etc/default/grub regexp='^GRUB_CMDLINE_LINUX=' line='GRUB_CMDLINE_LINUX="spectre_v2=retpoline rhgb quiet net.ifnames=0 biosdevname=0"'
     tags: grub
 
-  - name: propose changes of grub default file
+  - name: propose changes to grub
     become: True
     shell: grub2-mkconfig -o /etc/default/grub
     tags: grub
