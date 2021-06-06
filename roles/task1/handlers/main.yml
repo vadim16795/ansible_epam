@@ -3,7 +3,6 @@
     service:
       name: httpd
       state: restarted
-    when: (httpd_exists.stdout == '1')
 
   - name: restart firewalld
     service:
