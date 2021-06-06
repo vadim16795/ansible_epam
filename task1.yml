@@ -1,4 +1,4 @@
 ---
 - hosts: epam_ansible_module_hosts
   roles:
-    - role: 'roles/common'
+    - role: 'roles/task1'
