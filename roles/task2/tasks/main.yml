@@ -1,7 +1,7 @@
 ---
 - name: Add user1
   user:
-    name: "{{ user1 }}"
+    name: "{{ users }}.{{ user1 }}"
     password: "{{ alice_password }}"
     create_home: yes
     comment: alice@example.com
@@ -9,7 +9,7 @@
 
 - name: Add the user 'Bob'
   user:
-    name: "{{ user2 }}"
+    name: "{{ users }}.{{ user1 }}"
     password: "{{ alice_password }}"
     create_home: yes
     comment: bob@example.com
@@ -17,7 +17,7 @@
 
 - name: Add the user 'Carol'
   user:
-    name: "{{ user3 }}"
+    name: "{{ users }}.{{ user1 }}"
     password: "{{ alice_password }}"
     create_home: yes
     comment: carol@example.com
