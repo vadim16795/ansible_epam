@@ -26,8 +26,9 @@
 
   - name: allow traffic in default zone for http service
     firewalld:
+      zone: public
       service: http
-      permanent: yes
+      permanent: true
       state: enabled
     notify: restart firewalld
     tags: install_httpd
