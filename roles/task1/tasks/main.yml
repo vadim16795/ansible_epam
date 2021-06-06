@@ -1,5 +1,5 @@
 ---
-  - name: ensure latest httpd is installed
+  - name: ensure  httpd is installed
     yum: pkg=httpd state=installed
     when: ansible_distribution == 'CentOS'
     tags: install_httpd
@@ -72,8 +72,10 @@
   - name: change grub default file
     lineinfile: path=/etc/default/grub regexp='^GRUB_CMDLINE_LINUX=' line='GRUB_CMDLINE_LINUX="spectre_v2=retpoline rhgb quiet net.ifnames=0 biosdevname=0"'
     tags: grub
-
-  - name: propose changes to grub
+# it is strange to put generated config to the same destination file as default config
+# so i put generated config to /etc/default/grub.modified
+# but to actually update  boot options we need to do smth like 'grub2-mkconfig -o /boot/grub2/grub.cfg'
+  - name: generate config
     become: True
-    shell: grub2-mkconfig -o /etc/default/grub
+    shell: grub2-mkconfig -o /etc/default/grub.modofied
     tags: grub
