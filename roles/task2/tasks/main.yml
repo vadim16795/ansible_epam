@@ -1,0 +1,7 @@
+---
+- name: Add the user 'john'
+  user:
+    name: john
+    password: "{{ alice_password }}"
+    create_home: yes
+    comment: john@example.com
