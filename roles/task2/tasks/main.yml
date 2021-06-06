@@ -1,7 +1,21 @@
 ---
-- name: Add the user 'john'
+- name: Add the user 'Alice'
   user:
-    name: john
+    name: Alice
     password: "{{ alice_password }}"
     create_home: yes
-    comment: john@example.com
+    comment: alice@example.com
+
+- name: Add the user 'Bob'
+  user:
+    name: Bob
+    password: "{{ alice_password }}"
+    create_home: yes
+    comment: bob@example.com
+
+- name: Add the user 'Carol'
+  user:
+    name: Carol
+    password: "{{ alice_password }}"
+    create_home: yes
+    comment: carol@example.com
