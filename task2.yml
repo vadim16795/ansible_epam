@@ -1,0 +1,5 @@
+---
+- hosts: epam_ansible_module_hosts
+  vars_files: vars.yml
+  roles:
+    - role: 'roles/passwords'
