@@ -77,5 +77,5 @@
 # but to actually update  boot options we need to do smth like 'grub2-mkconfig -o /boot/grub2/grub.cfg'
   - name: generate config
     become: True
-    shell: grub2-mkconfig -o /etc/default/grub.modofied
+    shell: grub2-mkconfig -o /etc/default/grub.modified
     tags: grub
