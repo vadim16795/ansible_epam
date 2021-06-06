@@ -1,5 +1,5 @@
 # inventory file
 
-[epam_ansible_module_hosts]
+[epam_hosts]
 node1.example.com
 #node2.example.com
