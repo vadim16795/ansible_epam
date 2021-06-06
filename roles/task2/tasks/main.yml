@@ -1,24 +1,24 @@
 ---
 - name: Add user1
   user:
-    name: "{{ users.user1 }}"
+    name: "{{ users.name.user1 }}"
     password: "{{ alice_password }}"
     create_home: yes
-    comment: "{{ users.user1.email }}"
+    comment: "{{ users.email.email1 }}"
   tags: add_user
 
 - name: Add user2
   user:
-    name: "{{ users.user2 }}"
+    name: "{{ users.name.user2 }}"
     password: "{{ alice_password }}"
     create_home: yes
-    comment: "{{ users.user2.email }}"
+    comment: "{{ users.email.email2 }}"
   tags: add_user
 
 - name: Add user3
   user:
-    name: "{{ users.user3 }}"
+    name: "{{ users.name.user3 }}"
     password: "{{ alice_password }}"
     create_home: yes
-    comment: "{{ users.user3.email }}"
+    comment: "{{ users.email.user3 }}"
   tags: add_user

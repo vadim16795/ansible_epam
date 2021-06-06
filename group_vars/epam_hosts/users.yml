@@ -1,8 +1,11 @@
 ---
 users:
-  user1: "Alice"
-    email: alice@example.com
-  user2: "Bob"
-    email: bob@example.com
-  user3: "Carol"
-    email: carol@example.com
+  name:
+    user1: "Alice"
+    user2: "Bob"
+    user3: "Carol"
+  email:
+    email1: "alice"
+    email2: "bob"
+    email3: "carol"
+
