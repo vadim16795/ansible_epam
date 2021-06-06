@@ -1,0 +1,77 @@
+---
+  - name: ensure latest httpd is installed
+    yum: pkg=httpd state=latest
+    tags: install_httpd
+
+  - name: ensure httpd is service unit
+    service:
+      name: httpd
+      state: started
+      enabled: true
+    tags: install_httpd
+
+  - name: create index file from template
+    template: src=templates/index.html.j2 dest=/var/www/html/index.html owner=root group=root mode=0644
+    notify: restart httpd
+    tags: install_httpd
+
+  - name: enable port 80 for httpd to listen
+    firewalld:
+      zone: public
+      port: 80/tcp
+      permanent: true
+      state: enabled
+    notify: restart firewalld
+    tags: install_httpd
+
+  - name: allow traffic in default zone for http service
+    firewalld:
+      service: http
+      permanent: yes
+      state: enabled
+    notify: restart firewalld
+    tags: install_httpd
+
+  - name: stop httpd service unit
+    service:
+      name: httpd
+      state: stopped
+    tags: deinstall_httpd
+
+  - name: ensure that httpd service  disabled
+    systemd: name=httpd enabled=no
+    tags: deinstall_httpd
+
+  - name: remove httpd package
+    yum: pkg=httpd state=absent
+    tags: deinstall_httpd
+
+  - name: remove index.html file from /var/www/html/
+    file: path=/var/www/html/index.html state=absent
+    tags: deinstall_httpd
+
+  - name: disable port 80 for httpd to listen
+    firewalld:
+      zone: public
+      port: 80/tcp
+      permanent: true
+      state: disabled
+    notify: restart firewalld
+    tags: deinstall_httpd
+
+  - name: deny traffic in default zone for http service
+    firewalld:
+      service: http
+      permanent: yes
+      state: disabled
+    notify: restart firewalld
+    tags: deinstall_httpd
+
+  - name: change grub default file
+    lineinfile: path=/etc/default/grub regexp='^GRUB_CMDLINE_LINUX=' line='GRUB_CMDLINE_LINUX="spectre_v2=retpoline rhgb quiet net.ifnames=0 biosdevname=0"'
+    tags: grub
+
+  - name: propose changes of grub default file
+    become: True
+    shell: grub2-mkconfig -o /etc/default/grub
+    tags: grub
