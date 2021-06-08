@@ -13,20 +13,20 @@
 
 - name: Create directory for anon download only access
     file:
-      path: "{{ download_dir }}"
-      state: directory
-      owner: root
-      group: root
-      mode: 0755
+    path: "{{ download_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
     tags: configure vsftpd
 
 - name: Create directory for anon upload  access
     file:
-      path: "{{ upload_dir }}"
-      state: directory
-      owner: root
-      group: root
-      mode: 0777
+    path: "{{ upload_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0777
     tags: configure vsftpd
 
 - name: Create configuration for vsftpd from template
