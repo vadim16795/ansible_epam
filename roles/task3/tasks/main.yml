@@ -12,22 +12,22 @@
   tags: install_vsftpd
 
 - name: Create directory for anon download only access
-    file:
+  file:
     path: "{{ download_dir }}"
     state: directory
     owner: root
     group: root
     mode: 0755
-    tags: configure vsftpd
+  tags: configure vsftpd
 
 - name: Create directory for anon upload  access
-    file:
+  file:
     path: "{{ upload_dir }}"
     state: directory
     owner: root
     group: root
     mode: 0777
-    tags: configure vsftpd
+  tags: configure vsftpd
 
 - name: Create configuration for vsftpd from template
     template: src=templates/vsftpd.conf.j2 dest=/etc/vsftpd/vsftpd.conf owner=root group=root mode=0600
