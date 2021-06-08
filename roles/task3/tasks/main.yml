@@ -49,5 +49,5 @@
     service: ftp
     permanent: true
     state: enabled
-    notify: restart firewalld
-    tags: configure_firewalld
+  notify: restart firewalld
+  tags: configure_firewalld
