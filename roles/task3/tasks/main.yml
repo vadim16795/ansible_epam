@@ -5,11 +5,11 @@
   tags: install_vsftpd
 
 - name: ensure vsftpd is service unit
-    service:
-      name: vsftpd
-      state: started
-      enabled: true
-    tags: install_vsftpd
+  service:
+    name: vsftpd
+    state: started
+    enabled: true
+  tags: install_vsftpd
 
 - name: Create directory for anon download only access
     path: "{{ download_dir }}"
