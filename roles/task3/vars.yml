@@ -1,2 +1,2 @@
-download_dir: "/var/ftp/pub"
-upload_dir: "/var/ftp/pub/upload"
+download_dir: /var/ftp/pub
+upload_dir: /var/ftp/pub/upload
