@@ -1,14 +1,51 @@
 ---
-- name: ensure  vsdtpd is installed
+- name: ensure vsftpd is installed
     yum: pkg=vsftpd state=installed
     when: ansible_distribution == 'CentOS'
     tags: install_vsftpd
 
-- name: Create a for pub access
-    path: /var/ftp/pub
+- name: ensure vsftpd is service unit
+    service:
+      name: vsftpd
+      state: started
+      enabled: true
+    tags: install_vsftpd
+
+- name: Create directory for anon download only access
+    path: "{{ download_dir }}"
     state: directory
     owner: root
     group: root
-    mode: 0600
+    mode: 0755
     tags: configure vsftpd
 
+- name: Create directory for anon upload  access
+    path: "{{ upload_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0777
+    tags: configure vsftpd
+
+- name: Create configuration for vsftpd from template
+    template: src=templates/vsftpd.conf.j2 dest=/etc/vsftpd/vsftpd.conf owner=root group=root mode=0600
+    notify: restart vsftpd
+    tags: configure vsftpd
+
+- name: enable port 20 and 21
+  firewalld:
+    zone: public
+    port: 20-21/tcp
+    permanent: true
+    state: enabled
+  notify: restart firewalld
+  tags: configure_firewalld
+
+- name: allow traffic in default zone for http service
+  firewalld:
+    zone: public
+    service: ftp
+    permanent: true
+    state: enabled
+    notify: restart firewalld
+    tags: configure_firewalld
