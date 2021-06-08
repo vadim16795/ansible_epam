@@ -30,9 +30,9 @@
   tags: configure vsftpd
 
 - name: Create configuration for vsftpd from template
-    template: src=templates/vsftpd.conf.j2 dest=/etc/vsftpd/vsftpd.conf owner=root group=root mode=0600
-    notify: restart vsftpd
-    tags: configure vsftpd
+  template: src=templates/vsftpd.conf.j2 dest=/etc/vsftpd/vsftpd.conf owner=root group=root mode=0600
+  notify: restart vsftpd
+  tags: configure vsftpd
 
 - name: enable port 20 and 21
   firewalld:
