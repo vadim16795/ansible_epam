@@ -1,0 +1,5 @@
+---
+- hosts: epam_hosts
+  vars_files: roles/task3/vars.yml
+  roles:
+    - role: 'roles/task3'
