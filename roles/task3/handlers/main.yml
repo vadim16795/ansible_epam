@@ -8,3 +8,11 @@
     service:
       name: firewalld
       state: restarted
+
+  - name: restore context1
+    become: True
+    shell: restorecon -R -v "{{ upload_dir }}"
+
+  - name: restore context2
+    become: True
+    shell: restorecon -R -v "{{ download_dir }}"

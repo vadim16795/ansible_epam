@@ -26,7 +26,7 @@
     state: directory
     owner: root
     group: root
-    mode: 0777
+    mode: 0775
   tags: configure vsftpd
 
 - name: Create configuration for vsftpd from template
@@ -43,7 +43,7 @@
   notify: restart firewalld
   tags: configure_firewalld
 
-- name: allow traffic in default zone for http service
+- name: allow traffic in default zone for ftp service
   firewalld:
     zone: public
     service: ftp
@@ -58,17 +58,31 @@
   when: ansible_distribution == 'CentOS'
   tags: configure_selinux
 
-- name: readnwrite through vsftpd
+- name: readnwrite through upload dir and files
   sefcontext:
-    target: '{{ download_dir }}(/.*)?'
+    target: '{{ upload_dir }}(/.*)?'
+    setype: public_content_rw_t
+    reload: True
+    state: present
+  register: filecontext1
+  notify: restore context1
+
+- name: readonly through dowload dir
+  sefcontext:
+    target: '{{ download_dir }}'
     setype: public_content_t
     reload: True
     state: present
-  register: filecontext
+  register: filecontext2
+  notify: restore context2
 
-- name : blahblahblah
+- name : blahblahblah1
   debug:
-    msg: "{{ filecontext }}"
+    msg: "{{ filecontext1 }}"
+
+- name: blahblahblah2
+  debug:
+    msg: "{{ filecontext2 }}"
 
 
 #- name: read and write permissions through vsftpd
@@ -77,16 +91,16 @@
 #    setype: public_content_rw_t
 #    state: present
 
-- name: Apply context for download_dir
-  become: True
-  shell: restorecon -R -v "{{ download_dir }}"
+#- name: Apply context for download_dir
+#  become: True
+ # shell: restorecon -R -v "{{ download_dir }}"
 
 #- name: Apply context for upload_dir
 #  become: True
 #  command: restorecon -R -v "{{ upload_dir }}"
 
-#- name: Set ftpd_anon_write flag on and keep it persistent
-#  seboolean:
-#    name: ftpd_anon_write
-#    state: yes
-#    persistent: yes
+- name: Set ftpd_anon_write flag on and keep it persistent
+  seboolean:
+    name: ftpd_anon_write
+    state: yes
+    persistent: yes
