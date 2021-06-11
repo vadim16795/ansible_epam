@@ -60,8 +60,8 @@
 
 - name: readnwrite through vsftpd
   sefcontext:
-    target: '"{{ download_dir }}"(/.*)?'
-    setype: public_content_rw_t
+    target: '{{ download_dir }}(/.*)?'
+    setype: public_content_t
     reload: True
     state: present
   register: filecontext
