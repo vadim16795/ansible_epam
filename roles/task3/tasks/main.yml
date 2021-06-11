@@ -61,7 +61,7 @@
 - name: read-only through vsftpd
   sefcontext:
     target: '"{{ download_dir }}"(/.*)?'
-    setype: public_content_t
+    setype: public_content_rw_t
     state: present
 
 - name: read and write permissions through vsftpd
@@ -76,7 +76,6 @@
 - name: Apply context for upload_dir
   command: restorecon -irv "{{ upload_dir }}"
 
-Authors
 #- name: Set ftpd_anon_write flag on and keep it persistent
 #  seboolean:
 #    name: ftpd_anon_write
