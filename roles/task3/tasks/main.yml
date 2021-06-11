@@ -58,9 +58,9 @@
   when: ansible_distribution == 'CentOS'
   tags: configure_selinux
 
-- name: read-only through vsftpd
+- name: readnwrite through vsftpd
   sefcontext:
-    target: '"{{ download_dir }}"(/.*)?'
+    target: '/var/ftp/pub(/.*)?'
     setype: public_content_rw_t
     state: present
 
@@ -72,7 +72,7 @@
 
 - name: Apply context for download_dir
   become: True
-  command: restorecon -R -v "{{ download_dir }}"
+  command: restorecon -R -v /var/ftp/pub
 
 #- name: Apply context for upload_dir
 #  become: True
