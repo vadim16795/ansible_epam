@@ -26,7 +26,7 @@
     state: directory
     owner: root
     group: root
-    mode: 0775
+    mode: 0777
   tags: configure vsftpd
 
 - name: Create configuration for vsftpd from template
@@ -94,20 +94,6 @@
     - { target: '{{ download_dir }}', setype: 'public_content_t' }
     - { target: '{{ upload_dir }}', setype: 'public_content_rw_t' }
   notify: set context
-
-#- name: read and write permissions through vsftpd
-#  sefcontext:
-#    target: '"{{ upload_dir }}"(/.*)?'
-#    setype: public_content_rw_t
-#    state: present
-
-#- name: Apply context for download_dir
-#  become: True
- # shell: restorecon -R -v "{{ download_dir }}"
-
-#- name: Apply context for upload_dir
-#  become: True
-#  command: restorecon -R -v "{{ upload_dir }}"
 
 - name: Set ftpd_anon_write flag on and keep it persistent
   seboolean:
