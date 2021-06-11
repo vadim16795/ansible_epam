@@ -60,9 +60,16 @@
 
 - name: readnwrite through vsftpd
   sefcontext:
-    target: '/var/ftp/pub(/.*)?'
+    target: '"{{ download_dir }}"(/.*)?'
     setype: public_content_rw_t
+    reload: True
     state: present
+  register: filecontext
+
+- name : debug
+  msg:
+    - "{{ filecontext.results }}"
+
 
 #- name: read and write permissions through vsftpd
 #  sefcontext:
