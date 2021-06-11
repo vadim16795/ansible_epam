@@ -64,12 +64,19 @@
     setype: public_content_t
     state: present
 
-- name: ead and write permissions through vsftpd
+- name: read and write permissions through vsftpd
   sefcontext:
     target: '"{{ upload_dir }}"(/.*)?'
     setype: public_content_rw_t
     state: present
 
+- name: Apply context for download_dir
+  command: restorecon -irv "{{ download_dir }}"
+
+- name: Apply context for upload_dir
+  command: restorecon -irv "{{ upload_dir }}"
+
+Authors
 #- name: Set ftpd_anon_write flag on and keep it persistent
 #  seboolean:
 #    name: ftpd_anon_write
