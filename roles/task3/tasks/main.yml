@@ -66,9 +66,9 @@
     state: present
   register: filecontext
 
-- name : debug
-  msg:
-    - "{{ filecontext.results }}"
+- name : blahblahblah
+  debug:
+    msg: "{{ filecontext }}"
 
 
 #- name: read and write permissions through vsftpd
@@ -79,7 +79,7 @@
 
 - name: Apply context for download_dir
   become: True
-  command: restorecon -R -v /var/ftp/pub
+  shell: restorecon -R -v "{{ download_dir }}"
 
 #- name: Apply context for upload_dir
 #  become: True
