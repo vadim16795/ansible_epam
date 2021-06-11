@@ -54,7 +54,7 @@
 
 - name: install python libs for selinux
   yum: name="{{ item }}" state=installed
-  loop: ['python3-libselinux', 'python3-libsemanage','policycoreutils-python']
+  loop: ['python3-libselinux', 'python3-libsemanage','policycoreutils-python-utils']
   when: ansible_distribution == 'CentOS'
   tags: configure_selinux
 
