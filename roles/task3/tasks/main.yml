@@ -52,13 +52,9 @@
   notify: restart firewalld
   tags: configure_firewalld
 
-- name: ensure that libselinux-python is installed
-  yum: pkg=python3-libselinux state=installed
-  when: ansible_distribution == 'CentOS'
-  tags: configure_selinux
-
-- name: ensure that libsemanage-python is installed
-  yum: pkg=python3-libsemanage state=installed
+- name: install python libs for selinux
+  yum: name="{{ item }}" state=installed
+  loop: ['python3-libselinux', 'python3-libsemanage','policycoreutils-python']
   when: ansible_distribution == 'CentOS'
   tags: configure_selinux
 
