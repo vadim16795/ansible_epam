@@ -1,5 +1,5 @@
 ---
-- name: ensure vsftpd is installed
+- name: ensure that vsftpd is installed
   yum: pkg=vsftpd state=installed
   when: ansible_distribution == 'CentOS'
   tags: install_vsftpd
@@ -51,3 +51,31 @@
     state: enabled
   notify: restart firewalld
   tags: configure_firewalld
+
+- name: ensure that libselinux-python is installed
+  yum: pkg=libselinux-python state=installed
+  when: ansible_distribution == 'CentOS'
+  tags: configure_selinux
+
+- name: ensure that libsemanage-python is installed
+  yum: pkg=libsemanage-python state=installed
+  when: ansible_distribution == 'CentOS'
+  tags: configure_selinux
+
+- name: read-only through vsftpd
+  sefcontext:
+    target: '"{{ download_dir }}"(/.*)?'
+    setype: public_content_t
+    state: present
+
+- name: ead and write permissions through vsftpd
+  sefcontext:
+    target: '"{{ upload_dir }}"(/.*)?'
+    setype: public_content_rw_t
+    state: present
+
+#- name: Set ftpd_anon_write flag on and keep it persistent
+#  seboolean:
+#    name: ftpd_anon_write
+#    state: yes
+#    persistent: yes
