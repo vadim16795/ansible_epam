@@ -1,4 +1,4 @@
 ---
-- hosts: epam_hosts
+- hosts: all
   roles:
     - role: 'roles/task1'
